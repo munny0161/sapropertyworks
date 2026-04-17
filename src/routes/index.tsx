@@ -270,29 +270,26 @@ function Index() {
               quote — free of charge.
             </p>
 
-            {/* PHONE NUMBERS */}
-            <div className="mt-10 space-y-4">
+            {/* PHONE NUMBER */}
+            <div className="mt-10">
               <a
                 href={`tel:${OWNER_TEL}`}
                 className="block bg-ink text-background p-5 hover:bg-background hover:text-ink transition-colors border-2 border-ink"
               >
                 <div className="font-display uppercase text-xs tracking-widest opacity-70">
-                  Owner — Call or Text
+                  Owner — Call or Text for Any Inquiries
                 </div>
                 <div className="font-display uppercase text-2xl sm:text-3xl mt-1">
                   +44 7852 164275
                 </div>
               </a>
               <a
-                href={`tel:${WORKER_TEL}`}
-                className="block bg-ink text-background p-5 hover:bg-background hover:text-ink transition-colors border-2 border-ink"
+                href={`https://wa.me/${OWNER_WA}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 block bg-background text-ink p-4 hover:bg-ink hover:text-background transition-colors border-2 border-ink font-display uppercase text-sm tracking-widest text-center"
               >
-                <div className="font-display uppercase text-xs tracking-widest opacity-70">
-                  Team — Call or Text
-                </div>
-                <div className="font-display uppercase text-2xl sm:text-3xl mt-1">
-                  +44 7460 197195
-                </div>
+                💬 Message on WhatsApp
               </a>
             </div>
 
@@ -302,14 +299,7 @@ function Index() {
             </div>
           </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Thanks! We'll get back to you within 24 hours.");
-            }}
-            className="bg-background text-ink p-8 sm:p-10 border-2 border-ink space-y-5"
-          >
-            <h3 className="font-display uppercase text-2xl">Request a free quote</h3>
+          <QuoteForm />
             <div>
               <label className="font-display uppercase text-xs tracking-wider block mb-2">
                 Name
