@@ -1,9 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import heroImg from "@/assets/hero-interior.jpg";
-import bathroomImg from "@/assets/work-bathroom.jpg";
-import kitchenImg from "@/assets/work-kitchen.jpg";
-import livingImg from "@/assets/work-living.jpg";
-import loftImg from "@/assets/work-loft.jpg";
+import job01 from "@/assets/job-01.jpeg";
+import job02 from "@/assets/job-02.jpeg";
+import job03 from "@/assets/job-03.jpeg";
+import job04 from "@/assets/job-04.jpeg";
+import job05 from "@/assets/job-05.jpeg";
+import job06 from "@/assets/job-06.jpeg";
+import job07 from "@/assets/job-07.jpeg";
+import job08 from "@/assets/job-08.jpeg";
+import job09 from "@/assets/job-09.jpeg";
+import job10 from "@/assets/job-10.jpeg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -13,7 +20,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Manchester's trusted decorator & property maintenance specialist. 14+ years experience. Painting, kitchens, bathrooms, flooring, lofts. 163 five-star reviews. Get a free quote today.",
+          "Manchester's trusted decorator & property maintenance team. 14+ years experience, 6+ active workers. Painting, kitchens, bathrooms, flooring, lofts. Free quotes.",
       },
     ],
   }),
@@ -30,12 +37,68 @@ const services = [
   { title: "Joinery", desc: "Custom carpentry, built to last." },
 ];
 
-const portfolio = [
-  { src: bathroomImg, label: "Bathroom Fit" },
-  { src: kitchenImg, label: "Kitchen Install" },
-  { src: livingImg, label: "Decorating" },
-  { src: loftImg, label: "Loft Conversion" },
+const slides = [
+  { src: job01, label: "Living Room — Finished" },
+  { src: job02, label: "Flooring In Progress" },
+  { src: job03, label: "Underlay Prep" },
+  { src: job04, label: "Hallway Install" },
+  { src: job05, label: "Lounge Complete" },
+  { src: job06, label: "Subfloor Prep" },
+  { src: job07, label: "Open-Plan Fit" },
+  { src: job08, label: "Laminate Layout" },
+  { src: job09, label: "Hallway Finish" },
+  { src: job10, label: "Kitchen / Living Done" },
 ];
+
+const OWNER_TEL = "+447852164275";
+const WORKER_TEL = "+447460197195";
+
+function Slideshow() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((p) => (p + 1) % slides.length), 3500);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div className="relative border-2 border-background overflow-hidden bg-background">
+      <div className="relative aspect-[4/3] sm:aspect-[16/10]">
+        {slides.map((s, idx) => (
+          <img
+            key={s.src}
+            src={s.src}
+            alt={s.label}
+            loading={idx === 0 ? "eager" : "lazy"}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              idx === i ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        <div className="absolute bottom-0 left-0 right-0 bg-ink/80 text-background px-5 py-3 flex items-center justify-between">
+          <span className="font-display uppercase text-xs sm:text-sm tracking-wider text-brand">
+            {slides[i].label}
+          </span>
+          <span className="font-display text-xs sm:text-sm tracking-wider">
+            {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+          </span>
+        </div>
+      </div>
+      <div className="flex gap-1 p-2 bg-ink overflow-x-auto">
+        {slides.map((s, idx) => (
+          <button
+            key={s.src}
+            onClick={() => setI(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`shrink-0 w-16 h-12 sm:w-20 sm:h-14 overflow-hidden border-2 transition-all ${
+              idx === i ? "border-brand opacity-100" : "border-ink opacity-50 hover:opacity-100"
+            }`}
+          >
+            <img src={s.src} alt="" className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function Index() {
   return (
@@ -70,7 +133,7 @@ function Index() {
             </h1>
             <p className="mt-8 max-w-xl text-lg sm:text-xl font-medium text-ink/80">
               14+ years renovating Manchester homes. Painting, kitchens, bathrooms, flooring, lofts
-              — one trusted tradesman, top-to-bottom.
+              — a trusted team, top-to-bottom.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <a
@@ -80,7 +143,7 @@ function Index() {
                 Book a Free Quote →
               </a>
               <a
-                href="tel:+447000000000"
+                href={`tel:${OWNER_TEL}`}
                 className="font-display uppercase text-base sm:text-lg border-2 border-ink px-8 py-5 text-center hover:bg-ink hover:text-background transition-colors"
               >
                 Call Now
@@ -105,7 +168,7 @@ function Index() {
           {[
             ["14+", "Years Experience"],
             ["5.0", "Average Rating"],
-            ["163", "Reviews"],
+            ["6+", "Active Workers"],
             ["✓", "Verified by MyBuilder"],
           ].map(([n, l]) => (
             <div key={l}>
@@ -125,7 +188,7 @@ function Index() {
             <span className="text-brand">under one roof.</span>
           </h2>
           <p className="text-lg text-ink/70 mb-14 max-w-2xl">
-            One tradesman. One point of contact. No subcontractors, no excuses.
+            One team. One point of contact. No excuses.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-ink border-2 border-ink">
             {services.map((s, i) => (
@@ -144,48 +207,34 @@ function Index() {
         </div>
       </section>
 
-      {/* PORTFOLIO */}
+      {/* PORTFOLIO — REAL PHOTOS SLIDESHOW */}
       <section id="work" className="border-b border-black bg-ink text-background">
         <div className="max-w-7xl mx-auto px-6 py-20 sm:py-28">
           <div className="flex items-end justify-between mb-12 flex-wrap gap-6">
             <h2 className="font-display uppercase text-5xl sm:text-7xl leading-none tracking-tight">
-              Recent Work
+              Our Current
+              <br />
+              <span className="text-brand">Work</span>
             </h2>
             <p className="text-lg max-w-sm opacity-80">
-              Real jobs. Real finishes. Built by hand in Manchester.
+              Real jobs. Real photos. Straight from the tools.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {portfolio.map((p) => (
-              <figure key={p.label} className="group">
-                <div className="overflow-hidden border-2 border-background">
-                  <img
-                    src={p.src}
-                    alt={p.label}
-                    width={1024}
-                    height={1024}
-                    loading="lazy"
-                    className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <figcaption className="font-display uppercase text-sm tracking-wider mt-3 text-brand">
-                  {p.label}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <Slideshow />
         </div>
       </section>
 
-      {/* REVIEW QUOTE */}
+      {/* QUOTE — REPLACED WITH TEAM STAT */}
       <section className="border-b border-black">
         <div className="max-w-5xl mx-auto px-6 py-20 sm:py-28 text-center">
           <div className="font-display text-3xl text-brand mb-6">★★★★★</div>
           <blockquote className="font-display uppercase text-3xl sm:text-5xl leading-tight tracking-tight">
-            “14 years experience. Mainly works alone. Quality you can trust.”
+            6+ active workers,
+            <br />
+            <span className="text-brand">on the job today.</span>
           </blockquote>
           <p className="mt-8 font-display uppercase text-sm tracking-widest text-ink/60">
-            163 verified reviews · 5.0 average
+            A real team — bigger jobs, faster turnaround.
           </p>
         </div>
       </section>
@@ -200,12 +249,38 @@ function Index() {
               started.
             </h2>
             <p className="mt-6 text-lg max-w-md font-medium">
-              Tell me about your project. I'll come take a look and give you an honest, no-pressure
+              Tell us about your project. We'll come take a look and give you an honest, no-pressure
               quote — free of charge.
             </p>
-            <div className="mt-10 space-y-3 font-display uppercase text-sm tracking-wider">
+
+            {/* PHONE NUMBERS */}
+            <div className="mt-10 space-y-4">
+              <a
+                href={`tel:${OWNER_TEL}`}
+                className="block bg-ink text-background p-5 hover:bg-background hover:text-ink transition-colors border-2 border-ink"
+              >
+                <div className="font-display uppercase text-xs tracking-widest opacity-70">
+                  Owner — Call or Text
+                </div>
+                <div className="font-display uppercase text-2xl sm:text-3xl mt-1">
+                  +44 7852 164275
+                </div>
+              </a>
+              <a
+                href={`tel:${WORKER_TEL}`}
+                className="block bg-ink text-background p-5 hover:bg-background hover:text-ink transition-colors border-2 border-ink"
+              >
+                <div className="font-display uppercase text-xs tracking-widest opacity-70">
+                  Team — Call or Text
+                </div>
+                <div className="font-display uppercase text-2xl sm:text-3xl mt-1">
+                  +44 7460 197195
+                </div>
+              </a>
+            </div>
+
+            <div className="mt-8 space-y-2 font-display uppercase text-sm tracking-wider">
               <div>📍 Manchester & surrounding areas</div>
-              <div>📞 Call or message anytime</div>
               <div>✓ Workmanship warranty offered</div>
             </div>
           </div>
@@ -213,7 +288,7 @@ function Index() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              alert("Thanks! I'll get back to you within 24 hours.");
+              alert("Thanks! We'll get back to you within 24 hours.");
             }}
             className="bg-background text-ink p-8 sm:p-10 border-2 border-ink space-y-5"
           >
@@ -250,7 +325,7 @@ function Index() {
             </div>
             <div>
               <label className="font-display uppercase text-xs tracking-wider block mb-2">
-                Tell me about the job
+                Tell us about the job
               </label>
               <textarea
                 rows={4}
