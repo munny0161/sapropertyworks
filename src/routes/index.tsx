@@ -51,7 +51,17 @@ const slides = [
 ];
 
 const OWNER_TEL = "+447852164275";
-const WORKER_TEL = "+447460197195";
+const OWNER_WA = "447852164275"; // wa.me format (no +)
+
+function buildWhatsAppLink(name: string, phone: string, postcode: string, details: string) {
+  const msg =
+    `*New Quote Request — S A Decorating*\n\n` +
+    `*Name:* ${name}\n` +
+    `*Phone:* ${phone}\n` +
+    `*Postcode:* ${postcode}\n\n` +
+    `*Job details:*\n${details}`;
+  return `https://wa.me/${OWNER_WA}?text=${encodeURIComponent(msg)}`;
+}
 
 function Slideshow() {
   const [i, setI] = useState(0);
@@ -100,6 +110,83 @@ function Slideshow() {
   );
 }
 
+function QuoteForm() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [details, setDetails] = useState("");
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        const url = buildWhatsAppLink(name.trim(), phone.trim(), postcode.trim(), details.trim());
+        window.open(url, "_blank", "noopener,noreferrer");
+      }}
+      className="bg-background text-ink p-8 sm:p-10 border-2 border-ink space-y-5"
+    >
+      <h3 className="font-display uppercase text-2xl">Request a free quote</h3>
+      <p className="text-sm text-ink/70 -mt-2">
+        Sends straight to the owner's WhatsApp — fastest reply.
+      </p>
+      <div>
+        <label className="font-display uppercase text-xs tracking-wider block mb-2">Name</label>
+        <input
+          required
+          maxLength={80}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10"
+        />
+      </div>
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label className="font-display uppercase text-xs tracking-wider block mb-2">Phone</label>
+          <input
+            type="tel"
+            required
+            maxLength={20}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10"
+          />
+        </div>
+        <div>
+          <label className="font-display uppercase text-xs tracking-wider block mb-2">
+            Postcode
+          </label>
+          <input
+            required
+            maxLength={12}
+            value={postcode}
+            onChange={(e) => setPostcode(e.target.value)}
+            className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10"
+          />
+        </div>
+      </div>
+      <div>
+        <label className="font-display uppercase text-xs tracking-wider block mb-2">
+          Tell us about the job
+        </label>
+        <textarea
+          rows={4}
+          required
+          maxLength={1000}
+          value={details}
+          onChange={(e) => setDetails(e.target.value)}
+          className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10 resize-none"
+        />
+      </div>
+      <button
+        type="submit"
+        className="w-full font-display uppercase text-lg bg-ink text-background py-5 hover:bg-brand transition-colors flex items-center justify-center gap-2"
+      >
+        💬 Send via WhatsApp →
+      </button>
+    </form>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-ink font-sans">
@@ -117,6 +204,13 @@ function Index() {
           </a>
         </div>
       </header>
+
+      {/* SLOGAN BAR */}
+      <div className="bg-brand text-brand-foreground border-b-2 border-ink">
+        <div className="max-w-7xl mx-auto px-6 py-2.5 text-center font-display uppercase text-[11px] sm:text-sm tracking-wider">
+          "Jack of all trades, master of none — but most of the time better than master of one."
+        </div>
+      </div>
 
       {/* HERO */}
       <section id="top" className="border-b border-black">
@@ -253,29 +347,26 @@ function Index() {
               quote — free of charge.
             </p>
 
-            {/* PHONE NUMBERS */}
-            <div className="mt-10 space-y-4">
+            {/* PHONE NUMBER */}
+            <div className="mt-10">
               <a
                 href={`tel:${OWNER_TEL}`}
                 className="block bg-ink text-background p-5 hover:bg-background hover:text-ink transition-colors border-2 border-ink"
               >
                 <div className="font-display uppercase text-xs tracking-widest opacity-70">
-                  Owner — Call or Text
+                  Owner — Call or Text for Any Inquiries
                 </div>
                 <div className="font-display uppercase text-2xl sm:text-3xl mt-1">
                   +44 7852 164275
                 </div>
               </a>
               <a
-                href={`tel:${WORKER_TEL}`}
-                className="block bg-ink text-background p-5 hover:bg-background hover:text-ink transition-colors border-2 border-ink"
+                href={`https://wa.me/${OWNER_WA}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 block bg-background text-ink p-4 hover:bg-ink hover:text-background transition-colors border-2 border-ink font-display uppercase text-sm tracking-widest text-center"
               >
-                <div className="font-display uppercase text-xs tracking-widest opacity-70">
-                  Team — Call or Text
-                </div>
-                <div className="font-display uppercase text-2xl sm:text-3xl mt-1">
-                  +44 7460 197195
-                </div>
+                💬 Message on WhatsApp
               </a>
             </div>
 
@@ -285,61 +376,7 @@ function Index() {
             </div>
           </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Thanks! We'll get back to you within 24 hours.");
-            }}
-            className="bg-background text-ink p-8 sm:p-10 border-2 border-ink space-y-5"
-          >
-            <h3 className="font-display uppercase text-2xl">Request a free quote</h3>
-            <div>
-              <label className="font-display uppercase text-xs tracking-wider block mb-2">
-                Name
-              </label>
-              <input
-                required
-                className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10"
-              />
-            </div>
-            <div className="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label className="font-display uppercase text-xs tracking-wider block mb-2">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  required
-                  className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10"
-                />
-              </div>
-              <div>
-                <label className="font-display uppercase text-xs tracking-wider block mb-2">
-                  Postcode
-                </label>
-                <input
-                  required
-                  className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="font-display uppercase text-xs tracking-wider block mb-2">
-                Tell us about the job
-              </label>
-              <textarea
-                rows={4}
-                required
-                className="w-full border-2 border-ink px-4 py-3 font-medium focus:outline-none focus:bg-brand/10 resize-none"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full font-display uppercase text-lg bg-ink text-background py-5 hover:bg-brand transition-colors"
-            >
-              Send Request →
-            </button>
-          </form>
+          <QuoteForm />
         </div>
       </section>
 
