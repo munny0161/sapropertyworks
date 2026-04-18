@@ -207,13 +207,6 @@ function Index() {
         </div>
       </header>
 
-      {/* SLOGAN BAR */}
-      <div className="bg-brand text-brand-foreground border-b-2 border-ink">
-        <div className="max-w-7xl mx-auto px-6 py-2.5 text-center font-display uppercase text-[11px] sm:text-sm tracking-wider">
-          "Jack of all trades, master of none — but most of the time better than master of one."
-        </div>
-      </div>
-
       {/* HERO */}
       <section id="top" className="border-b border-black">
         <div className="max-w-7xl mx-auto px-6 pt-16 pb-20 sm:pt-24 sm:pb-28 grid lg:grid-cols-12 gap-10 items-end">
@@ -262,10 +255,10 @@ function Index() {
       <section className="border-b border-black bg-ink text-background">
         <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            ["14+", "Years Experience"],
-            ["5.0", "Average Rating"],
-            ["6+", "Active Workers"],
-            ["✓", "Verified by MyBuilder"],
+            ["20+", "Years Experience"],
+            ["5★", "Rating"],
+            ["3+", "Active Workers"],
+            ["✓", "Everything Under One Roof"],
           ].map(([n, l]) => (
             <div key={l}>
               <div className="font-display text-3xl sm:text-4xl text-brand">{n}</div>
