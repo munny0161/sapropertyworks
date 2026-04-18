@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Manchester's trusted decorator & property maintenance team. 14+ years experience, 6+ active workers. Painting, kitchens, bathrooms, flooring, lofts. Free quotes.",
+          "Manchester's trusted decorator & property maintenance team. 20+ years experience, 3+ active workers. Painting, kitchens, bathrooms, flooring, lofts. Free quotes.",
       },
     ],
   }),
@@ -221,7 +221,7 @@ function Index() {
               <span className="text-brand">Done right.</span>
             </h1>
             <p className="mt-8 max-w-xl text-lg sm:text-xl font-medium text-ink/80">
-              14+ years renovating Manchester homes. Painting, kitchens, bathrooms, flooring, lofts
+              20+ years renovating Manchester homes. Painting, kitchens, bathrooms, flooring, lofts
               — a trusted team, top-to-bottom.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
