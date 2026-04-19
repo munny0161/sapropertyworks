@@ -318,7 +318,7 @@ function Index() {
         <div className="max-w-5xl mx-auto px-6 py-20 sm:py-28 text-center">
           <div className="font-display text-3xl text-brand mb-6">★★★★★</div>
           <blockquote className="font-display uppercase text-3xl sm:text-5xl leading-tight tracking-tight">
-            6+ active workers,
+            3+ active workers,
             <br />
             <span className="text-brand">on the job today.</span>
           </blockquote>
