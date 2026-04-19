@@ -286,7 +286,7 @@ function Index() {
                 className="bg-background p-7 hover:bg-brand hover:text-brand-foreground transition-colors group"
               >
                 <div className="font-display text-3xl text-brand group-hover:text-brand-foreground mb-3">
-                  0{i + 1}
+                  {String(i + 1).padStart(2, "0")}
                 </div>
                 <h3 className="font-display uppercase text-lg mb-2">{s.title}</h3>
                 <p className="text-sm font-medium opacity-80">{s.desc}</p>
@@ -318,7 +318,7 @@ function Index() {
         <div className="max-w-5xl mx-auto px-6 py-20 sm:py-28 text-center">
           <div className="font-display text-3xl text-brand mb-6">★★★★★</div>
           <blockquote className="font-display uppercase text-3xl sm:text-5xl leading-tight tracking-tight">
-            6+ active workers,
+            3+ active workers,
             <br />
             <span className="text-brand">on the job today.</span>
           </blockquote>
